@@ -1,0 +1,119 @@
+$ pip install --user cookiecutter
+
+//GitHub Repo
+Create new repo - initialize with a LICENSE and .gitignore file
+
+//Local Directory
+$ mkdir cookiedozer
+
+//Project Structure
+$ cd cookiedozer
+$ tree -a -L 1
+
+//Optional - if reStructuredText (rst) over markdown (md) for readme
+$ git mv README.md README.rst
+$ git commit -m "Convert README.md to rst format"
+
+//Template Structure
+{{cookiecutter.repo_name}}
+
+//Create Python Package
+$ mkdir -p {{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}
+
+//__init__.py
+$ cd \{\{cookiecutter.repo_name\}\}/\{\{cookiecutter.repo_name\}\}/
+$ touch __init__.py
+$ touch {{cookiecutter.repo_name}}.py
+
+//utf-8 encoding
+__author__ = '{{cookiecutter.full_name}}'
+__email__ = '{{cookiecutter.email}}'
+__version__ = '{{cookiecutter.version}}'
+
+//Context file
+$ touch cookiecutter.json
+
+{
+    "full_name": "Tanvi Penumudy",
+    "email": "tanvipenumudy@gmail.com",
+    "repo_name": "helloworld",
+    "version": "0.1.0"
+}
+
+//Basic kivy app //Entrypoint
+from {{cookiecutter.repo_name}} import {{cookiecutter.app_class_name}}
+
+def main():
+    {{cookiecutter.app_class_name}}().run()
+
+if __name__ == '__main__':
+    main()
+
+//GUI Code
+$ touch {{cookiecutter.app_class_name}}.kv
+
+#:kivy {{cookiecutter.kivy_version}}
+
+Button:
+    text: '{{cookiecutter.app_title}}'
+
+//Cookiecutter hooks
+$ cd ../..
+$ mkdir hooks
+$ touch hooks/post_gen_project.py
+
+//Rename kv file after project has been generated for convention
+
+//LICENSE File
+$ cp LICENSE \{\{cookiecutter.repo_name\}\}/
+
+The MIT License (MIT)
+Copyright (c) {{cookiecutter.year}} {{cookiecutter.full_name}}
+
+//README file
+$ touch \{\{cookiecutter.repo_name\}\}/README.rst
+
+{{cookiecutter.app_title}}
+==========================
+
+{{cookiecutter.short_description}}
+----
+This `Kivy`_ app was generated with `Cookiecutter`_ along with `@hackebrot`_'s
+`Cookiedozer`_ template.
+
+.. _`Kivy`: https://github.com/kivy/kivy
+.. _`Cookiecutter`: https://github.com/audreyr/cookiecutter
+.. _`@hackebrot`: https://github.com/hackebrot
+.. _`Cookiedozer`: https://github.com/hackebrot/cookiedozer
+
+//Update Context File
+{
+    "full_name": "Raphael Pierzina",
+    "email": "raphael@hackebrot.de",
+    "repo_name": "helloworld",
+    "app_class_name": "HelloWorldApp",
+    "app_title": "Hello World!",
+    "short_description": "Simple app that features a gray button!",
+    "version": "0.1.0",
+    "kivy_version": "1.8.0",
+    "year": "2015"
+}
+
+//Run Cookiecutter
+$ cookiecutter cookiedozer
+
+//Launch App
+$ cd helloworld/helloworld
+$ python main.py
+
+
+
+
+
+
+
+
+
+
+
+
